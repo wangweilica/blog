@@ -17,5 +17,7 @@
     <p class="info">阅读：<%= post.pv %> | 评论：<%= post.comments.length %></p>
 </div>
 
+<% if(user){ //判断是否登录%>
 <%- include comment %>
+<%}%>
 <%- include footer %>

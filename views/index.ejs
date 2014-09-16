@@ -3,9 +3,8 @@
 <div class="hero-unit">
     <h3><a href="/u/<%= post.author%>/<%= post.time.day %>/<%= post.title%>"><%= post.title %></a></h3>
 
-    <div class="article-body">
+    <div class="article-body" limit="700">
         <p><%- post.post %></p>
-
     </div>
 
     <hr>
@@ -28,3 +27,4 @@
 <% }) %>
 <%- include paging %>
 <%- include footer %>
+<script src="/javascripts/index.js" ></script>

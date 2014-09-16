@@ -6,15 +6,15 @@
  * Time: 5:37pm
  */
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema
+    Schema = mongoose.Schema;
 
-var schema = new Schema({
-    author: String,
-    title: String,
+var BlogSchema = new Schema({
+    author: {type:String,require:true},
+    title: {type:String,require:true},
     tags: Array,
     post: String,
     comments:Array,
-    time:JSON,
-    pv:Number
+    time:{type:JSON,require:true},
+    pv:{type:Number,require:true}
 });
-mongoose.model('Blog', schema);
+mongoose.model('Blog', BlogSchema);

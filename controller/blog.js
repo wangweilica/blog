@@ -5,11 +5,13 @@
  * Date: 14-9-12
  * Time: 5:37pm
  */
+
 var markdown = require('markdown').markdown,
     BlogModel = require("./../models").Blog,
     blogDao = require("../dao/BlogDao"),
     User = require("./user.js"),
-    path = require('path');
+    path = require('path'),
+    Util = require('./../libs/util');
 exports.index = function (req, res) {
     //判断是否是第一页，并把请求的页数转换成 number 类型
     var page = req.query.p ? parseInt(req.query.p) : 1;
@@ -71,9 +73,17 @@ exports.doPost = function(req, res){
 //获取标签列表
 exports.getTags = function(req, res){
     blogDao.getByQuery({}, {"tags":1}, {distinct:"tags"}, function (err,posts) {
+       // console.log(posts);
+        var tags = new Array();
+        posts.forEach(function(tagArray){
+            (tagArray.tags).forEach(function(tag){
+                tags.push(tag);
+            });
+        });
+        tags = tags.delRepeat();
         res.render('tags', {
             title: '标签',
-            posts: posts,
+            tags: tags,
             user: req.session.user,
             success: req.flash('success').toString(),
             error: req.flash('error').toString()
@@ -167,8 +177,7 @@ exports.view = function(req, res){
         //判断不是博主浏览
         if(req.session.user==null || req.session.user.name!=req.params.author){
             //每访问1次，pv 值增加1
-            BlogModel.update({"author": req.params.author, "time.day": req.params.day, "title": req.params.title},{$inc: {"pv": 1}},function(err){
-                console.log("--------------------"+err);
+            BlogModel.update({"author": req.params.author, "time.day": req.params.day, "title": req.params.title},{$inc: {"pv": 1}},{},function(err){
                 if(err){
                     return res.redirect('/');
                 }
@@ -186,7 +195,7 @@ exports.view = function(req, res){
 //留言
 exports.comment = function(req, res){
     var comment = getComment(req);
-    BlogModel.findAndModify({"author": req.params.author, "time.day": req.params.day, "title": req.params.title} ,[ ['time.date',-1] ],{$push:{"comments":comment}}, {new: true}, function (err,comment) {
+    BlogModel.update({"author": req.params.author, "time.day": req.params.day, "title": req.params.title} ,{$push:{"comments":comment}}, {new: true}, function (err) {
         if (err) {
             req.flash('error', err);
             return res.redirect('/');

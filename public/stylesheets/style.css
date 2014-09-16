@@ -1,13 +1,33 @@
 body {
     padding-top: 60px;
-    padding-bottom: 40px;
-
+    padding-bottom: 20px;
+   /* background-color: #bee1f5;
+    background-image: url("/images/body_repeat.png");*/
+    background:url(images/body.png) repeat-x;
+    background-repeat: repeat-x;
 }
-
+.nav .setting {
+    display: block;
+    width: 16px;
+    height: 16px;
+    top:2px;
+    background: url("/images/bg_line.png") no-repeat -350px -6px;
+    overflow: hidden;
+}
+.nav .writing {
+    display: block;
+    top:13px;
+    width: 16px;
+    height: 16px;
+    background: url("/images/bg_line.png") no-repeat -225px -6px;
+    overflow: hidden;
+}
 .article-body {
     height: 300px;
 }
-
+.dropdown-menu {
+    left:87%!important;
+}
 #userName {
     margin-right: 10px;
 }
@@ -15,13 +35,12 @@ body {
 #article-body ,.container-body{
     min-height: 740px;
 }
-
-.post-body textarea{
-    width: 1155px;
-}
 .comment-form textarea{
     width: 600px;
 }
 .nextpage{
     float: right;
+}
+.input-block-level1{
+    width:672px
 }

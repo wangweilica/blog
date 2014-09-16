@@ -9,7 +9,7 @@
 seajs.config({
     // 别名配置
     alias: {
-        '$':'jquery/jquery/1.10.1/jquery',
+        'jquery':'jquery/jquery/1.10.1/jquery',
         'backbone':'gallery/1.0.0/backbone',
         'underscore':'gallery/1.4.4/underscore',
         'bootstrap':'gallery/3.0.0/bootstrap'
