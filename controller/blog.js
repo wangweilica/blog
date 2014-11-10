@@ -6,8 +6,8 @@
  * Time: 5:37pm
  */
 
-var markdown = require('markdown').markdown,
-    BlogModel = require("./../models").Blog,
+//var markdown = require('markdown').markdown,
+var BlogModel = require("./../models").Blog,
     blogDao = require("../dao/BlogDao"),
     User = require("./user.js"),
     path = require('path'),
@@ -25,9 +25,9 @@ exports.index = function (req, res) {
     blogDao.countByQuery(query, function (err, total) {
         blogDao.getByQuery(query, null, {skip:(page - 1) * 10,sort:{'time.date': -1},limit: 10}, function (err, blogs) {
             //解析markdown为html
-            blogs.forEach(function (blog) {
+           /* blogs.forEach(function (blog) {
                 blog.post = markdown.toHTML(blog.post);
-            });
+            });*/
             res.render('index', {
                 title: '主页',
                 user: req.session.user,
@@ -147,9 +147,9 @@ exports.getBlogs = function(req, res){
     blogDao.countByQuery(query, function (err, total) {
         blogDao.getByQuery(query, null, {skip:(page - 1) * 10,sort:{'time.date': -1},limit: 10}, function (err, blogs) {
             //解析markdown为html
-            blogs.forEach(function (blog) {
+           /* blogs.forEach(function (blog) {
                 blog.post = markdown.toHTML(blog.post);
-            });
+            });*/
             res.render('user', {
                 title: user.name,
                 posts: blogs,
@@ -168,12 +168,12 @@ exports.view = function(req, res){
     //查找博文
     BlogModel.findOne({"author": req.params.author, "time.day": req.params.day, "title": req.params.title}, null, {}, function (err,blog) {
         //解析 markdown 为 html
-        if (blog) {
+       /* if (blog) {
             blog.post = markdown.toHTML(blog.post);
             blog.comments.forEach(function (comment) {
                 comment.content = markdown.toHTML(comment.content);
             });
-        }
+        }*/
         //判断不是博主浏览
         if(req.session.user==null || req.session.user.name!=req.params.author){
             //每访问1次，pv 值增加1
