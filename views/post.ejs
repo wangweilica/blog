@@ -1,26 +1,46 @@
 <%- include header %>
-<link rel="stylesheet" type="text/css" href="markitup/images/style.css">
-<!-- markItUp! skin -->
-<link rel="stylesheet" type="text/css" href="markitup/skins/markitup/style.css">
-<!--  markItUp! toolbar skin -->
-<link rel="stylesheet" type="text/css" href="markitup/sets/default/style.css">
-<!-- markItUp! -->
-<script type="text/javascript" src="markitup/jquery.markitup.js"></script>
-<!-- markItUp! toolbar settings -->
-<script type="text/javascript" src="markitup/sets/default/set.js"></script>
-<script type="text/javascript" src="javascripts/post.js"></script>
+<link  type="text/css" rel="stylesheet" href="UMEditor/themes/_css/umeditor.css">
+<script type="text/javascript" charset="utf-8" src="UMEditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="UMEditor/editor_api.js"></script>
+<script type="text/javascript" src="UMEditor/lang/zh-cn/zh-cn.js"></script>
+<style>
+    .edui-container {
+        width:60% !important;
+    }
+    .hide {
+        display:none;
+    }
+</style>
 <div class="post-body">
-    <form method="post">
+    <form method="post" id="myForm">
         <h3>标题：(文章的标题)</h3>
         <input type="text" name="title" class="input-block-level1"/><br/>
         <h3>标签：(可为空)</h3>
         <input type="text" name="tags" />，<input type="text" name="tags" />，<input type="text" name="tags" /><br/>
         <h4>正文：(不能为空)</h4>
-        <textarea name="post"  id="markItUp" rows="20" cols="50"></textarea><br/>
+        <textarea name="post" class="hide" rows="20" cols="50"></textarea><br/>
+        <!--style给定宽度可以影响编辑器的最终宽度-->
+        <script type="text/plain" id="myEditor"></script>
+        <script type="text/javascript">
+            var um = UM.getEditor('myEditor',{
+                //这里可以选择自己需要的工具按钮名称
+                toolbar:['fullscreen source undo redo bold italic underline forecolor backcolor justifyleft justifycenter justifyright justifyjustify fontfamily fontsize'],//image
+                //focus时自动清空初始化时的内容
+                autoClearinitialContent:true,
+                //关闭字数统计
+                wordCount:false,
+                //关闭elementPath
+                elementPathEnabled:false,
+                //默认的编辑区域高度
+                initialFrameHeight:200
+                //更多其他参数，请参考umeditor.config.js中的配置项
+            });
+        </script>
         <input type="hidden" name="pv" value="0" />
-        <input type="submit" value="发表" class="btn btn-large btn-primary"/>
+        <br>
+        <input type="button" id='publish' value="发表" class="btn btn-large btn-primary"/>
         <a href="/" class="btn btn-large">取消</a>
     </form>
 </div>
-
+<script type="text/javascript" src="javascripts/post.js"></script>
 <%- include footer %>

@@ -1,9 +1,8 @@
 body {
     padding-top: 60px;
     padding-bottom: 20px;
-   /* background-color: #bee1f5;
-    background-image: url("/images/body_repeat.png");*/
-    background:url(images/body.png) repeat-x;
+    background-color: #bee1f5;
+    background-image: url("/images/body_repeat.png");
     background-repeat: repeat-x;
 }
 .nav .setting {
